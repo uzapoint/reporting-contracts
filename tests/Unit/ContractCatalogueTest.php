@@ -23,23 +23,56 @@ final class ContractCatalogueTest extends TestCase
      * A contract whose eventName() is not in this list would publish into the void.
      */
     private const array CONSUMED_ROUTING_KEYS = [
-        'business.deleted', 'business.data.purged',
-        'support_ticket.created', 'support_ticket.updated', 'support_ticket.closed', 'ticket_message.created',
-        'sales.item.voided', 'sale.item.synced', 'sale.payment.recorded', 'invoice.snapshot.synced',
-        'quotation.snapshot.synced', 'sales.credit_note_issued',
-        'procurement.requisition.created', 'procurement.requisition.approved', 'procurement.requisition.rejected',
-        'procurement.purchase_order.created', 'procurement.purchase_order.sent', 'procurement.purchase_order.accepted',
-        'procurement.purchase_order.rejected', 'procurement.purchase_order.cancelled',
-        'procurement.goods_received.grn_created', 'procurement.goods_received.items_received',
-        'procurement.rejected_item.recorded', 'procurement.purchase_return.created', 'procurement.purchase_return.submitted',
-        'procurement.purchase_return.approved', 'procurement.purchase_return.rejected', 'procurement.catalogue.generated',
-        'procurement.supplier.created', 'procurement.supplier.updated',
-        'products.skus.created', 'products.skus.updated', 'products.skus.deleted', 'product.item.synced', 'product.item.deactivated',
-        'accounts.expense.created', 'accounts.expense.approved', 'accounts.expense.voided',
-        'accounts.payable.snapshot', 'accounts.receivable.snapshot',
-        'payable.payment.recorded', 'payable.fully_paid', 'receivable.payment.recorded', 'receivable.fully_paid',
+        'business.deleted',
+        'business.data.purged',
+        'support_ticket.created',
+        'support_ticket.updated',
+        'support_ticket.closed',
+        'ticket_message.created',
+        'sales.item.voided',
+        'sale.item.synced',
+        'sale.payment.recorded',
+        'invoice.snapshot.synced',
+        'quotation.snapshot.synced',
+        'sales.credit_note_issued',
+        'procurement.requisition.created',
+        'procurement.requisition.approved',
+        'procurement.requisition.rejected',
+        'procurement.purchase_order.created',
+        'procurement.purchase_order.sent',
+        'procurement.purchase_order.accepted',
+        'procurement.purchase_order.rejected',
+        'procurement.purchase_order.cancelled',
+        'procurement.goods_received.grn_created',
+        'procurement.goods_received.items_received',
+        'procurement.rejected_item.recorded',
+        'procurement.purchase_return.created',
+        'procurement.purchase_return.submitted',
+        'procurement.purchase_return.approved',
+        'procurement.purchase_return.rejected',
+        'procurement.catalogue.generated',
+        'procurement.supplier.created',
+        'procurement.supplier.updated',
+        'products.skus.created',
+        'products.skus.updated',
+        'products.skus.deleted',
+        'product.item.synced',
+        'product.item.deactivated',
+        'accounts.expense.created',
+        'accounts.expense.approved',
+        'accounts.expense.voided',
+        'accounts.payable.snapshot',
+        'accounts.receivable.snapshot',
+        'payable.payment.recorded',
+        'payable.fully_paid',
+        'receivable.payment.recorded',
+        'receivable.fully_paid',
+        // Consumed by sales-ms (accounts.events -> sales_ms.accounts_events), not Reports MS.
+        'receivable.payment.reversed',
         'stock.transaction.recorded',
-        'production.requisition.synced', 'production.finished_goods.produced', 'production.raw_materials.consumed',
+        'production.requisition.synced',
+        'production.finished_goods.produced',
+        'production.raw_materials.consumed',
     ];
 
     /**
@@ -58,14 +91,14 @@ final class ContractCatalogueTest extends TestCase
         $classes = [];
 
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator(dirname(__DIR__, 2) . '/src')) as $file) {
-            if (! $file->isFile() || $file->getExtension() !== 'php') {
+            if (!$file->isFile() || $file->getExtension() !== 'php') {
                 continue;
             }
 
             $relative = substr($file->getPathname(), strlen(dirname(__DIR__, 2) . '/src/'), -4);
             $class = 'Uzapoint\\ReportingContracts\\' . str_replace('/', '\\', $relative);
 
-            if (is_subclass_of($class, ReportData::class) && ! (new \ReflectionClass($class))->isAbstract()) {
+            if (is_subclass_of($class, ReportData::class) && !(new \ReflectionClass($class))->isAbstract()) {
                 $classes[] = $class;
             }
         }
@@ -75,7 +108,7 @@ final class ContractCatalogueTest extends TestCase
         sort($fixtures);
 
         $this->assertSame($fixtures, $classes, 'Add a fixture to Payloads::all() for every new contract.');
-        $this->assertCount(22, $classes);
+        $this->assertCount(23, $classes);
     }
 
     #[Test]

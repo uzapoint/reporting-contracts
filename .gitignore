@@ -4,3 +4,4 @@
 /composer.offline.lock
 /.phpunit.cache/
 /.phpunit.result.cache
+.idea/

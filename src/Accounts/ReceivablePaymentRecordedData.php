@@ -30,7 +30,16 @@ final class ReceivablePaymentRecordedData extends ReportData
         /** ISO-8601 */
         public ?string $paid_at = null,
         public int|string|null $user_id = null,
-    ) {}
+        // Operational fields for sales-ms, which mirrors the payment onto its sale/invoice.
+        // Optional additions are not a schema bump: consumers ignore unknown keys.
+        public int|string|null $sale_id = null,
+        public int|string|null $invoice_id = null,
+        public ?string $invoice_number = null,
+        public ?string $payment_method = null,
+        public ?string $reference = null,
+        public ?float $applied_amount = null,
+    ) {
+    }
 
     public function eventName(): string
     {
