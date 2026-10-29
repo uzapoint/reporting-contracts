@@ -21,6 +21,11 @@ use Uzapoint\ReportingContracts\ReportData;
  * therefore carry the sale's complete current state: status, payment amounts,
  * void details and credit-note summaries are all part of it.
  *
+ * Pricing (schema stays 1; every pricing field is optional and defaults to 0):
+ * item unit_price is the LIST price and line_total the net amount charged, so
+ * line_discount_total = item discount + this line's share of the order discount. grand_total
+ * includes delivery_fee. Free goods carry line_total 0.
+ *
  * sale_date is the moment the sale happened, as a full ISO-8601 timestamp
  * (POS close time, invoice approval time), never a bare date: the lake buckets
  * sales by hour and day from it.
@@ -85,6 +90,17 @@ final class SaleReportData extends ReportData
         public array $sale_users = [],
         #[DataCollectionOf(SaleCreditNoteSummaryData::class)]
         public array $credit_notes = [],
+        /** Delivery charged on the sale (untaxed, part of grand_total). 0 when none. */
+        public float $delivery_fee = 0.0,
+        /** discount_total is item_discount_total + order_discount_total. */
+        public float $item_discount_total = 0.0,
+        /** The whole-order discount, spread over the lines (tax-exclusive). */
+        public float $order_discount_total = 0.0,
+        /** What the free goods would have sold for (informational, not revenue). */
+        public float $free_goods_value = 0.0,
+        /** Cost of goods given away "free with expense"; booked as an expense, not as cost of sales. */
+        public float $free_expense_total = 0.0,
+        public ?SaleDeliveryData $delivery = null,
     ) {
     }
 

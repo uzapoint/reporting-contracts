@@ -2,7 +2,13 @@
 
 All notable changes to `uzapoint/reporting-contracts` are documented here. The format follows Keep a Changelog; versions follow SemVer. A contract's own `SCHEMA_VERSION` is independent of the package version and is bumped only on an incompatible payload change.
 
-## [1.3.0] - 2026-10-27
+## [1.3.0] - 2026-10-29
+
+### Added
+
+- `Sales\SaleDeliveryData` and, on `SaleReportData`: `delivery`, `delivery_fee`, `item_discount_total`, `order_discount_total`, `free_goods_value`, `free_expense_total`. On `SaleItemReportData`: `is_free_good`, `is_free_with_expense`, `free_value`, `expense_amount`, `order_discount_total`. All optional with zero/false defaults, so existing producers and consumers keep working. Schema stays 1.
+
+## [1.2.0] - 2026-10-27
 
 ### Added
 
