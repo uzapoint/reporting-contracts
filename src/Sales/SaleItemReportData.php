@@ -12,7 +12,8 @@ use Spatie\LaravelData\Data;
  * Consumer reads: product_sku_id, product_code, product_name, category_id,
  * category_name, unit_cost, quantity, unit_price, line_subtotal, line_total,
  * line_tax_total, line_discount_total, batch_number, serial_number,
- * tracking_method, expiry_date. Legacy aliases it still accepts (sku, qty)
+ * tracking_method, expiry_date, is_free_good, is_free_with_expense, free_value,
+ * expense_amount, order_discount_total. Legacy aliases it still accepts (sku, qty)
  * are not part of the contract.
  */
 final class SaleItemReportData extends Data
@@ -37,5 +38,16 @@ final class SaleItemReportData extends Data
         /** none | batch | serial */
         public string $tracking_method = 'none',
         public ?string $expiry_date = null,
-    ) {}
+        /** Given away free (line_total 0). */
+        public bool $is_free_good = false,
+        /** Free good consumed by the business: its cost is booked as an expense, not cost of sales. */
+        public bool $is_free_with_expense = false,
+        /** What the line would have sold for. */
+        public float $free_value = 0.0,
+        /** Cost booked as an expense for a free-with-expense line. */
+        public ?float $expense_amount = null,
+        /** This line's share of the whole-order discount (tax-exclusive); part of line_discount_total. */
+        public float $order_discount_total = 0.0,
+    ) {
+    }
 }
