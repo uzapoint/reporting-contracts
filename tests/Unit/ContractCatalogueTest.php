@@ -70,6 +70,8 @@ final class ContractCatalogueTest extends TestCase
         // Consumed by sales-ms (accounts.events -> sales_ms.accounts_events), not Reports MS.
         'receivable.payment.reversed',
         'stock.transaction.recorded',
+        // Consumed by reports-ms from business.events (business-ms commissions).
+        'commission.ledger.recorded',
         'production.requisition.synced',
         'production.finished_goods.produced',
         'production.raw_materials.consumed',
@@ -108,7 +110,7 @@ final class ContractCatalogueTest extends TestCase
         sort($fixtures);
 
         $this->assertSame($fixtures, $classes, 'Add a fixture to Payloads::all() for every new contract.');
-        $this->assertCount(23, $classes);
+        $this->assertCount(24, $classes);
     }
 
     #[Test]

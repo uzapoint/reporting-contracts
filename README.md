@@ -31,60 +31,68 @@ Routing keys and consumers are those of reports-ms `config/eventbus.php` at the 
 
 ### Sales (`sales.events`)
 
-| Contract | Kind | Routing key | Consumer |
-| --- | --- | --- | --- |
-| `Sales\SaleReportData` (+ `SaleItemReportData`, `SalePaymentReportData`, `SaleUserReportData`) | snapshot | `sale.item.synced` | `ProcessSaleSnapshot` |
-| `Sales\SalePaymentRecordedData` | event | `sale.payment.recorded` | `HandleSalePaymentRecorded` |
-| `Sales\VoidedSaleItemReportData` | event | `sales.item.voided` | `StoreVoidedItemSnapshot` |
-| `Sales\InvoiceReportData` (+ `DocumentItemReportData`) | snapshot | `invoice.snapshot.synced` | `HandleInvoiceSnapshot` |
-| `Sales\QuotationReportData` (+ `DocumentItemReportData`) | snapshot | `quotation.snapshot.synced` | `HandleQuotationSnapshot` |
-| `Sales\CreditNoteReportData` (+ `CreditNoteItemReportData`) | snapshot | `sales.credit_note_issued` | `HandleCreditNoteSnapshot` |
+| Contract                                                                                       | Kind     | Routing key                 | Consumer                    |
+| ---------------------------------------------------------------------------------------------- | -------- | --------------------------- | --------------------------- |
+| `Sales\SaleReportData` (+ `SaleItemReportData`, `SalePaymentReportData`, `SaleUserReportData`) | snapshot | `sale.item.synced`          | `ProcessSaleSnapshot`       |
+| `Sales\SalePaymentRecordedData`                                                                | event    | `sale.payment.recorded`     | `HandleSalePaymentRecorded` |
+| `Sales\VoidedSaleItemReportData`                                                               | event    | `sales.item.voided`         | `StoreVoidedItemSnapshot`   |
+| `Sales\InvoiceReportData` (+ `DocumentItemReportData`)                                         | snapshot | `invoice.snapshot.synced`   | `HandleInvoiceSnapshot`     |
+| `Sales\QuotationReportData` (+ `DocumentItemReportData`)                                       | snapshot | `quotation.snapshot.synced` | `HandleQuotationSnapshot`   |
+| `Sales\CreditNoteReportData` (+ `CreditNoteItemReportData`)                                    | snapshot | `sales.credit_note_issued`  | `HandleCreditNoteSnapshot`  |
 
 ### Products (`products.events`)
 
-| Contract | Kind | Routing key | Consumer |
-| --- | --- | --- | --- |
-| `Products\ProductReportData` (+ `ProductSkuReportData`) | snapshot | `product.item.synced` | `SyncProductToLake` |
-| `Products\ProductDeactivatedData` | event | `product.item.deactivated` | `HandleProductDeactivation` |
-| `Products\ProductSkuChangedData` | event | `products.skus.{created,updated,deleted}` | `SyncProductToLake` / `HandleProductDeactivation` |
+| Contract                                                | Kind     | Routing key                               | Consumer                                          |
+| ------------------------------------------------------- | -------- | ----------------------------------------- | ------------------------------------------------- |
+| `Products\ProductReportData` (+ `ProductSkuReportData`) | snapshot | `product.item.synced`                     | `SyncProductToLake`                               |
+| `Products\ProductDeactivatedData`                       | event    | `product.item.deactivated`                | `HandleProductDeactivation`                       |
+| `Products\ProductSkuChangedData`                        | event    | `products.skus.{created,updated,deleted}` | `SyncProductToLake` / `HandleProductDeactivation` |
 
 ### Stocks (`stocks.events`)
 
-| Contract | Kind | Routing key | Consumer |
-| --- | --- | --- | --- |
+| Contract                            | Kind  | Routing key                  | Consumer                  |
+| ----------------------------------- | ----- | ---------------------------- | ------------------------- |
 | `Stocks\StockTransactionReportData` | event | `stock.transaction.recorded` | `ProcessStockTransaction` |
 
 ### Accounts (`accounts.events`, published in the `wrapped` envelope format)
 
-| Contract | Kind | Routing key | Consumer |
-| --- | --- | --- | --- |
-| `Accounts\ExpenseReportData` | event | `accounts.expense.{created,approved,voided}` | `HandleExpenseCreated` |
-| `Accounts\PayableReportData` | snapshot | `accounts.payable.snapshot` | `HandlePayableSnapshot` |
-| `Accounts\PayablePaymentRecordedData` | event | `payable.payment.recorded` / `payable.fully_paid` | `HandlePayableSnapshot` |
-| `Accounts\ReceivableReportData` | snapshot | `accounts.receivable.snapshot` | `HandleReceivableSnapshot` |
-| `Accounts\ReceivablePaymentRecordedData` | event | `receivable.payment.recorded` / `receivable.fully_paid` | `HandleReceivableSnapshot` |
+| Contract                                 | Kind     | Routing key                                             | Consumer                   |
+| ---------------------------------------- | -------- | ------------------------------------------------------- | -------------------------- |
+| `Accounts\ExpenseReportData`             | event    | `accounts.expense.{created,approved,voided}`            | `HandleExpenseCreated`     |
+| `Accounts\PayableReportData`             | snapshot | `accounts.payable.snapshot`                             | `HandlePayableSnapshot`    |
+| `Accounts\PayablePaymentRecordedData`    | event    | `payable.payment.recorded` / `payable.fully_paid`       | `HandlePayableSnapshot`    |
+| `Accounts\ReceivableReportData`          | snapshot | `accounts.receivable.snapshot`                          | `HandleReceivableSnapshot` |
+| `Accounts\ReceivablePaymentRecordedData` | event    | `receivable.payment.recorded` / `receivable.fully_paid` | `HandleReceivableSnapshot` |
 
 ### Support (`support.events`)
 
-| Contract | Kind | Routing key | Consumer |
-| --- | --- | --- | --- |
-| `Support\SupportTicketReportData` | snapshot | `support_ticket.{created,updated,closed}` | `HandleSupportTicketSnapshot` |
-| `Support\TicketMessageCreatedData` | event | `ticket_message.created` | `HandleTicketMessageSnapshot` |
+| Contract                           | Kind     | Routing key                               | Consumer                      |
+| ---------------------------------- | -------- | ----------------------------------------- | ----------------------------- |
+| `Support\SupportTicketReportData`  | snapshot | `support_ticket.{created,updated,closed}` | `HandleSupportTicketSnapshot` |
+| `Support\TicketMessageCreatedData` | event    | `ticket_message.created`                  | `HandleTicketMessageSnapshot` |
 
 ### Production (`production.events`)
 
-| Contract | Kind | Routing key | Consumer |
-| --- | --- | --- | --- |
+| Contract                                     | Kind     | Routing key                                                                                                  | Consumer                              |
+| -------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
 | `Production\ProductionRequisitionReportData` | snapshot | `production.requisition.synced` / `production.finished_goods.produced` / `production.raw_materials.consumed` | `HandleProductionRequisitionSnapshot` |
 
 ### Procurement (`procurement.events`)
 
-| Contract | Kind | Routing key | Consumer |
-| --- | --- | --- | --- |
+| Contract                                                                | Kind     | Routing key                                                             | Consumer                         |
+| ----------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------- | -------------------------------- |
 | `Procurement\PurchaseOrderReportData` (+ `PurchaseOrderItemReportData`) | snapshot | `procurement.purchase_order.{created,sent,accepted,rejected,cancelled}` | `HandleProcurementPurchaseOrder` |
-| `Procurement\RequisitionReportData` | snapshot | `procurement.requisition.{created,approved,rejected}` | `HandleProcurementRequisition` |
-| `Procurement\GoodsReceivedReportData` | snapshot | `procurement.goods_received.grn_created` | `HandleProcurementGoodsReceived` |
-| `Procurement\SupplierReportData` | snapshot | `procurement.supplier.{created,updated}` | `HandleProcurementSupplier` |
+| `Procurement\RequisitionReportData`                                     | snapshot | `procurement.requisition.{created,approved,rejected}`                   | `HandleProcurementRequisition`   |
+| `Procurement\GoodsReceivedReportData`                                   | snapshot | `procurement.goods_received.grn_created`                                | `HandleProcurementGoodsReceived` |
+| `Procurement\SupplierReportData`                                        | snapshot | `procurement.supplier.{created,updated}`                                | `HandleProcurementSupplier`      |
+
+### Commissions (`business.events`)
+
+| Contract                                                                   | Kind     | Routing key                  | Consumer                         |
+| -------------------------------------------------------------------------- | -------- | ---------------------------- | -------------------------------- |
+| `Commissions\CommissionLedgerReportData` (+ `CommissionSummaryReportData`) | snapshot | `commission.ledger.recorded` | `HandleCommissionLedgerRecorded` |
+
+Published by business-ms after every ledger change (earn, approve, reject, payout, clawback, adjust). The commission _commands_ that feed business-ms (`*.commission.completed|refunded`) are operational events, not reports, and are deliberately not contracted here.
 
 ### Deliberately not contracted
 

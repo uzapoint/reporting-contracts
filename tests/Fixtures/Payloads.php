@@ -10,6 +10,7 @@ use Uzapoint\ReportingContracts\Accounts\PayableReportData;
 use Uzapoint\ReportingContracts\Accounts\ReceivablePaymentRecordedData;
 use Uzapoint\ReportingContracts\Accounts\ReceivablePaymentReversedData;
 use Uzapoint\ReportingContracts\Accounts\ReceivableReportData;
+use Uzapoint\ReportingContracts\Commissions\CommissionLedgerReportData;
 use Uzapoint\ReportingContracts\Procurement\GoodsReceivedReportData;
 use Uzapoint\ReportingContracts\Procurement\PurchaseOrderReportData;
 use Uzapoint\ReportingContracts\Procurement\RequisitionReportData;
@@ -218,6 +219,43 @@ final class Payloads
                 'reason' => 'Bounced cheque',
                 'reversed_at' => '2026-10-25T10:00:00+03:00',
                 'user_id' => 3,
+            ],
+            CommissionLedgerReportData::class => [
+                'ledger_id' => 71,
+                'business_id' => 12,
+                'type' => 'earn',
+                'status' => 'approved',
+                'amount' => 15.5,
+                'created_at' => '2026-10-27T10:15:00+03:00',
+                'updated_at' => '2026-10-27T10:15:02+03:00',
+                'earner_type' => 'staff',
+                'earner_id' => 3,
+                'earner_name' => 'Wanjiku',
+                'commission_program_id' => 2,
+                'program_name' => 'Cashier bonus',
+                'commission_summary_id' => 9,
+                'balance_after' => 15.5,
+                'sale_id' => 9001,
+                'sale_receipt_number' => 'POS-0001',
+                'sale_total' => 1000,
+                'rule_basis' => 'transaction',
+                'rule_rate_type' => 'percentage',
+                'rule_rate_value' => 1.55,
+                'performed_by_name' => 'System',
+                'summary' => [
+                    'summary_id' => 9,
+                    'business_id' => 12,
+                    'earner_type' => 'staff',
+                    'earner_id' => 3,
+                    'earner_name' => 'Wanjiku',
+                    'commission_program_id' => 2,
+                    'program_name' => 'Cashier bonus',
+                    'total_earned' => 15.5,
+                    'total_approved' => 15.5,
+                    'pending_balance' => 15.5,
+                    'transactions_count' => 1,
+                    'updated_at' => '2026-10-27T10:15:02+03:00',
+                ],
             ],
             SupportTicketReportData::class => [
                 'id' => 2201,
