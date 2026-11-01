@@ -8,7 +8,7 @@ Versions follow SemVer. A contract's `SCHEMA_VERSION` is independent of the pack
 
 - `Accounts\JournalEntryPostedData` (+ `JournalEntryLineData`) on `accounts.journal.posted`: a posted or reversed ledger entry with all its lines. Schema 1.
 - `Accounts\JournalEntryReversedData` on `accounts.journal.reversed`. Schema 1.
-- `Accounts\ChartAccountChangedData` on `accounts.coa.upserted` / `accounts.coa.deleted`, switched by `is_deleted`. Schema 1.
+- `Accounts\ChartAccountChangedData` on `accounts.coa.upserted` / `accounts.coa.deleted`, switched by `is_deleted`; carries `account_subtype`. Schema 1.
 
 ## [1.4.0] - 2026-10-29
 

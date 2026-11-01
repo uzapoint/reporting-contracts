@@ -30,6 +30,8 @@ final class ChartAccountChangedData extends ReportData
         public ?string $name = null,
         /** asset | liability | equity | revenue | expense */
         public ?string $account_type = null,
+        /** cash_bank | receivable | inventory | ... ; null when unclassified. Cash flow groups by it. */
+        public ?string $account_subtype = null,
         /** debit | credit */
         public ?string $normal_balance = null,
         public int|string|null $parent_id = null,
