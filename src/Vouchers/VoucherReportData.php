@@ -48,7 +48,7 @@ final class VoucherReportData extends ReportData
         public ?string $expires_at = null,
         /** ISO-8601 of the latest transaction; issued_at when there is none. */
         public ?string $last_activity_at = null,
-        /** sale | manual | refund | ecommerce */
+        /** sale | refund | bulk | manual | change | ecommerce */
         public ?string $channel = null,
         /** What the buyer paid, which can differ from face_value on a bonus voucher. */
         public ?float $amount_received = null,

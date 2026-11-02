@@ -2,6 +2,13 @@
 
 Versions follow SemVer. A contract's `SCHEMA_VERSION` is independent of the package version and only bumps on an incompatible payload change.
 
+## [1.6.1] - 2026-11-02
+
+### Changed
+
+- `Vouchers\VoucherTransactionReportData`: `type` gains `refunded` (value returned to an existing voucher; liability up), and `adjusted` is now defined as always a liability decrease (excess left after a sale, settled as change, a new voucher or forfeited). The type list and direction of each are documented on the class. No field added or removed. Schema stays 1.
+- `Vouchers\VoucherReportData`: `channel` documents its actual values (`sale | refund | bulk | manual | change | ecommerce`). No code change.
+
 ## [1.6.0] - 2026-11-02
 
 ### Added

@@ -18,11 +18,12 @@ use Uzapoint\ReportingContracts\ReportData;
  * Consumer:    reports-ms -> voucher_transactions (append, deduplicated by the idempotency key)
  *
  * amount is always positive; type gives the direction:
- *   issued    liability up    (voucher sold or granted)
+ *   issued    liability up    (voucher sold, granted or re-issued as change)
+ *   refunded  liability up    (value returned to an existing voucher)
  *   redeemed  liability down  (spent at a till; sale_id / sale_number identify the sale)
  *   expired   liability down  (balance lapsed, recognised as breakage)
  *   voided    liability down  (cancelled before use)
- *   adjusted  liability up or down; direction is the sign of balance_after against the previous row
+ *   adjusted  liability down  (excess left after a sale, settled as change, a new voucher or forfeited)
  */
 final class VoucherTransactionReportData extends ReportData
 {
@@ -32,7 +33,7 @@ final class VoucherTransactionReportData extends ReportData
         public int|string $transaction_id,
         public int|string $voucher_id,
         public int $business_id,
-        /** issued | redeemed | expired | voided | adjusted */
+        /** issued | refunded | redeemed | expired | voided | adjusted */
         public string $type,
         public float $amount,
         public float $balance_after,
