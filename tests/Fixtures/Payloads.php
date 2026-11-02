@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
+// Package: uzapoint/reporting-contracts — tests/Fixtures/Payloads.php
+
 namespace Uzapoint\ReportingContracts\Tests\Fixtures;
 
 use Uzapoint\ReportingContracts\Accounts\ExpenseReportData;
 use Uzapoint\ReportingContracts\Accounts\PayablePaymentRecordedData;
 use Uzapoint\ReportingContracts\Accounts\PayableReportData;
 use Uzapoint\ReportingContracts\Accounts\ReceivablePaymentRecordedData;
-use Uzapoint\ReportingContracts\Accounts\ReceivablePaymentReversedData;
 use Uzapoint\ReportingContracts\Accounts\ReceivableReportData;
-use Uzapoint\ReportingContracts\Commissions\CommissionLedgerReportData;
 use Uzapoint\ReportingContracts\Procurement\GoodsReceivedReportData;
 use Uzapoint\ReportingContracts\Procurement\PurchaseOrderReportData;
 use Uzapoint\ReportingContracts\Procurement\RequisitionReportData;
@@ -28,6 +28,9 @@ use Uzapoint\ReportingContracts\Sales\VoidedSaleItemReportData;
 use Uzapoint\ReportingContracts\Stocks\StockTransactionReportData;
 use Uzapoint\ReportingContracts\Support\SupportTicketReportData;
 use Uzapoint\ReportingContracts\Support\TicketMessageCreatedData;
+use Uzapoint\ReportingContracts\Vouchers\PromoRedemptionReportData;
+use Uzapoint\ReportingContracts\Vouchers\VoucherReportData;
+use Uzapoint\ReportingContracts\Vouchers\VoucherTransactionReportData;
 
 /**
  * One valid wire payload per publishable contract. These are the inputs a
@@ -208,55 +211,6 @@ final class Payloads
                 'is_fully_paid' => false,
                 'payment_id' => 31,
             ],
-            ReceivablePaymentReversedData::class => [
-                'receivable_id' => 801,
-                'business_id' => 12,
-                'payment_id' => 31,
-                'new_paid_amount' => 0,
-                'remaining_amount' => 11600.5,
-                'status' => 'pending',
-                'reversed_amount' => 5000.25,
-                'reason' => 'Bounced cheque',
-                'reversed_at' => '2026-10-25T10:00:00+03:00',
-                'user_id' => 3,
-            ],
-            CommissionLedgerReportData::class => [
-                'ledger_id' => 71,
-                'business_id' => 12,
-                'type' => 'earn',
-                'status' => 'approved',
-                'amount' => 15.5,
-                'created_at' => '2026-10-27T10:15:00+03:00',
-                'updated_at' => '2026-10-27T10:15:02+03:00',
-                'earner_type' => 'staff',
-                'earner_id' => 3,
-                'earner_name' => 'Wanjiku',
-                'commission_program_id' => 2,
-                'program_name' => 'Cashier bonus',
-                'commission_summary_id' => 9,
-                'balance_after' => 15.5,
-                'sale_id' => 9001,
-                'sale_receipt_number' => 'POS-0001',
-                'sale_total' => 1000,
-                'rule_basis' => 'transaction',
-                'rule_rate_type' => 'percentage',
-                'rule_rate_value' => 1.55,
-                'performed_by_name' => 'System',
-                'summary' => [
-                    'summary_id' => 9,
-                    'business_id' => 12,
-                    'earner_type' => 'staff',
-                    'earner_id' => 3,
-                    'earner_name' => 'Wanjiku',
-                    'commission_program_id' => 2,
-                    'program_name' => 'Cashier bonus',
-                    'total_earned' => 15.5,
-                    'total_approved' => 15.5,
-                    'pending_balance' => 15.5,
-                    'transactions_count' => 1,
-                    'updated_at' => '2026-10-27T10:15:02+03:00',
-                ],
-            ],
             SupportTicketReportData::class => [
                 'id' => 2201,
                 'business_id' => 12,
@@ -340,6 +294,63 @@ final class Payloads
                 'status' => 'active',
                 'user_id' => 3,
             ],
+            VoucherReportData::class => [
+                'voucher_id' => 31,
+                'business_id' => 12,
+                'status' => 'partially_redeemed',
+                'face_value' => 5000.0,
+                'balance' => 3500.5,
+                'issued_at' => '2026-10-20T10:00:00+03:00',
+                'code_hint' => '7QK2',
+                'redeemed_total' => 1499.5,
+                'expires_at' => '2027-10-20T23:59:59+03:00',
+                'last_activity_at' => '2026-10-27T15:10:00+03:00',
+                'channel' => 'sale',
+                'amount_received' => 5000.0,
+                'payment_method' => 'Mpesa',
+                'branch_id' => 1,
+                'customer_id' => 44,
+                'customer_name' => 'Acme Ltd',
+                'source_sale_id' => 9050,
+                'source_sale_number' => 'S-2026-9050',
+                'issued_by' => 3,
+            ],
+            VoucherTransactionReportData::class => [
+                'transaction_id' => 880,
+                'voucher_id' => 31,
+                'business_id' => 12,
+                'type' => 'redeemed',
+                'amount' => 1499.5,
+                'balance_after' => 3500.5,
+                'occurred_at' => '2026-10-27T15:10:00+03:00',
+                'sale_id' => 9120,
+                'sale_number' => 'S-2026-9120',
+                'sale_ref' => '0f8fad5b-d9cb-469f-a165-70867728950e',
+                'branch_id' => 1,
+                'terminal_id' => 2,
+                'customer_id' => 44,
+                'user_id' => 3,
+            ],
+            PromoRedemptionReportData::class => [
+                'redemption_id' => 410,
+                'promo_id' => 7,
+                'business_id' => 12,
+                'action' => 'redeemed',
+                'code' => 'SAVE10',
+                'discount' => 161.0,
+                'sale_ref' => '0f8fad5b-d9cb-469f-a165-70867728950e',
+                'occurred_at' => '2026-10-27T15:10:00+03:00',
+                'name' => 'Ten percent off',
+                'applies_to' => 'order',
+                'stackable' => false,
+                'cart_subtotal' => 1610.0,
+                'sale_id' => 9120,
+                'sale_number' => 'S-2026-9120',
+                'customer_id' => 44,
+                'branch_id' => 1,
+                'terminal_id' => 2,
+                'user_id' => 3,
+            ],
         ];
     }
 
@@ -353,11 +364,8 @@ final class Payloads
             'business_id' => 12,
             'sale_number' => 'S-2026-9001',
             'sale_date' => '2026-10-13T13:45:00+03:00',
-            'status' => 'active',
-            'sale_type' => 'complete',
+            'status' => 'completed',
             'payment_status' => 'fully_paid',
-            'amount_paid' => 2000.5,
-            'amount_due' => 0.0,
             'grand_total' => 2000.5,
             'sub_total' => 1724.57,
             'tax_total' => 275.93,
@@ -401,9 +409,6 @@ final class Payloads
             ],
             'sale_users' => [
                 ['user_id' => 3, 'user_name' => 'Wanjiku'],
-            ],
-            'credit_notes' => [
-                ['id' => 17, 'credit_note_number' => 'CN-0017', 'status' => 'approved', 'type' => 'partial', 'total_amount' => 161.5, 'reason' => 'Damaged', 'created_at' => '2026-10-13T16:00:00+03:00'],
             ],
         ];
     }

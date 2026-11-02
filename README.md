@@ -21,14 +21,14 @@ composer require uzapoint/reporting-contracts
 
 ### Sales (`sales.events`)
 
-| Contract                                                                                       | Kind     | Routing key                 | Consumer                    |
-| ---------------------------------------------------------------------------------------------- | -------- | --------------------------- | --------------------------- |
-| `Sales\SaleReportData` (+ `SaleItemReportData`, `SalePaymentReportData`, `SaleUserReportData`) | snapshot | `sale.item.synced`          | `ProcessSaleSnapshot`       |
-| `Sales\SalePaymentRecordedData`                                                                | event    | `sale.payment.recorded`     | `HandleSalePaymentRecorded` |
-| `Sales\VoidedSaleItemReportData`                                                               | event    | `sales.item.voided`         | `StoreVoidedItemSnapshot`   |
-| `Sales\InvoiceReportData` (+ `DocumentItemReportData`)                                         | snapshot | `invoice.snapshot.synced`   | `HandleInvoiceSnapshot`     |
-| `Sales\QuotationReportData` (+ `DocumentItemReportData`)                                       | snapshot | `quotation.snapshot.synced` | `HandleQuotationSnapshot`   |
-| `Sales\CreditNoteReportData` (+ `CreditNoteItemReportData`)                                    | snapshot | `sales.credit_note_issued`  | `HandleCreditNoteSnapshot`  |
+| Contract                                                                                                                            | Kind     | Routing key                 | Consumer                    |
+| ----------------------------------------------------------------------------------------------------------------------------------- | -------- | --------------------------- | --------------------------- |
+| `Sales\SaleReportData` (+ `SaleItemReportData`, `SalePaymentReportData`, `SaleUserReportData`, `SalePromoData`, `SaleDeliveryData`) | snapshot | `sale.item.synced`          | `ProcessSaleSnapshot`       |
+| `Sales\SalePaymentRecordedData`                                                                                                     | event    | `sale.payment.recorded`     | `HandleSalePaymentRecorded` |
+| `Sales\VoidedSaleItemReportData`                                                                                                    | event    | `sales.item.voided`         | `StoreVoidedItemSnapshot`   |
+| `Sales\InvoiceReportData` (+ `DocumentItemReportData`)                                                                              | snapshot | `invoice.snapshot.synced`   | `HandleInvoiceSnapshot`     |
+| `Sales\QuotationReportData` (+ `DocumentItemReportData`)                                                                            | snapshot | `quotation.snapshot.synced` | `HandleQuotationSnapshot`   |
+| `Sales\CreditNoteReportData` (+ `CreditNoteItemReportData`)                                                                         | snapshot | `sales.credit_note_issued`  | `HandleCreditNoteSnapshot`  |
 
 ### Products (`products.events`)
 
@@ -93,6 +93,16 @@ Published by accounts-ms for every posted or reversed entry and every chart-of-a
 | `Commissions\CommissionLedgerReportData` (+ `CommissionSummaryReportData`) | snapshot | `commission.ledger.recorded` | `HandleCommissionLedgerRecorded` |
 
 Published by business-ms after every ledger change (earn, approve, reject, payout, clawback, adjust). The commission _commands_ that feed business-ms (`*.commission.completed|refunded`) are operational events, not reports, and are deliberately not contracted here.
+
+### Vouchers (`business.events`)
+
+| Contract                                | Kind     | Routing key                    | Consumer                    |
+| --------------------------------------- | -------- | ------------------------------ | --------------------------- |
+| `Vouchers\VoucherReportData`            | snapshot | `voucher.snapshot.synced`      | `ProcessVoucherSnapshot`    |
+| `Vouchers\VoucherTransactionReportData` | event    | `voucher.transaction.recorded` | `ProcessVoucherTransaction` |
+| `Vouchers\PromoRedemptionReportData`    | event    | `promo.redemption.recorded`    | `ProcessPromoRedemption`    |
+
+Published by business-ms on every value-voucher change and promo redemption or reversal. Voucher reports carry `code_hint` only, never the code. A voucher tender on a sale is not a separate event: it is a payment flagged `is_voucher` on `SaleReportData`, and a promo code is `SaleReportData.promo`, joined to its redemption by `sale_ref`.
 
 ### Not contracted
 

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+// Package: uzapoint/reporting-contracts — tests/Unit/ContractCatalogueTest.php
+
 namespace Uzapoint\ReportingContracts\Tests\Unit;
 
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -67,14 +69,13 @@ final class ContractCatalogueTest extends TestCase
         'payable.fully_paid',
         'receivable.payment.recorded',
         'receivable.fully_paid',
-        // Consumed by sales-ms (accounts.events -> sales_ms.accounts_events), not Reports MS.
-        'receivable.payment.reversed',
         'stock.transaction.recorded',
-        // Consumed by reports-ms from business.events (business-ms commissions).
-        'commission.ledger.recorded',
         'production.requisition.synced',
         'production.finished_goods.produced',
         'production.raw_materials.consumed',
+        'voucher.snapshot.synced',
+        'voucher.transaction.recorded',
+        'promo.redemption.recorded',
     ];
 
     /**
@@ -110,7 +111,7 @@ final class ContractCatalogueTest extends TestCase
         sort($fixtures);
 
         $this->assertSame($fixtures, $classes, 'Add a fixture to Payloads::all() for every new contract.');
-        $this->assertCount(24, $classes);
+        $this->assertCount(25, $classes);
     }
 
     #[Test]

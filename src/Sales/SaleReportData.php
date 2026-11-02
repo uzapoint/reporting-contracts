@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+// Package: uzapoint/reporting-contracts — src/Sales/SaleReportData.php
+
 namespace Uzapoint\ReportingContracts\Sales;
 
 use DateTimeInterface;
@@ -25,6 +27,10 @@ use Uzapoint\ReportingContracts\ReportData;
  * item unit_price is the LIST price and line_total the net amount charged, so
  * line_discount_total = item discount + this line's share of the order discount. grand_total
  * includes delivery_fee. Free goods carry line_total 0.
+ *
+ * Vouchers and promos (schema stays 1; all optional): a voucher tender is an ordinary entry in payments,
+ * flagged is_voucher, and voucher_paid_total is their sum. A promo code's discount is part of
+ * order_discount_total; promo_discount_total isolates it and promo identifies the code and the redemption ref.
  *
  * sale_date is the moment the sale happened, as a full ISO-8601 timestamp
  * (POS close time, invoice approval time), never a bare date: the lake buckets
@@ -101,6 +107,11 @@ final class SaleReportData extends ReportData
         /** Cost of goods given away "free with expense"; booked as an expense, not as cost of sales. */
         public float $free_expense_total = 0.0,
         public ?SaleDeliveryData $delivery = null,
+        /** Part of order_discount_total that came from the promo code; the rest is the manual order discount. */
+        public float $promo_discount_total = 0.0,
+        /** Total tendered with value vouchers, a subset of amount_paid. */
+        public float $voucher_paid_total = 0.0,
+        public ?SalePromoData $promo = null,
     ) {
     }
 

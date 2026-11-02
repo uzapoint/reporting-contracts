@@ -2,6 +2,15 @@
 
 Versions follow SemVer. A contract's `SCHEMA_VERSION` is independent of the package version and only bumps on an incompatible payload change.
 
+## [1.6.0] - 2026-11-02
+
+### Added
+
+- `Vouchers\VoucherReportData` on `voucher.snapshot.synced`: a value voucher's current state (status, face value, balance, redeemed and expired amounts, expiry, channel, source sale). Carries `code_hint` only, never the code. Schema 1.
+- `Vouchers\VoucherTransactionReportData` on `voucher.transaction.recorded`: one liability-changing movement (issued, redeemed, expired, voided, adjusted), idempotent per transaction. Schema 1.
+- `Vouchers\PromoRedemptionReportData` on `promo.redemption.recorded`: a promo code redeemed or reversed, joined to its sale by `sale_ref`, idempotent per transition. Schema 1.
+- `Sales\SalePromoData` and, on `SaleReportData`: `promo`, `promo_discount_total`, `voucher_paid_total`. On `SalePaymentReportData`: `is_voucher`, `reference`. All optional with zero/false/null defaults. Schema stays 1.
+
 ## [1.5.0] - 2026-11-01
 
 ### Added
