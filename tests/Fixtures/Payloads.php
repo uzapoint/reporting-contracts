@@ -24,6 +24,7 @@ use Uzapoint\ReportingContracts\Sales\InvoiceReportData;
 use Uzapoint\ReportingContracts\Sales\QuotationReportData;
 use Uzapoint\ReportingContracts\Sales\SalePaymentRecordedData;
 use Uzapoint\ReportingContracts\Sales\SaleReportData;
+use Uzapoint\ReportingContracts\Sales\SalesTargetReportData;
 use Uzapoint\ReportingContracts\Sales\VoidedSaleItemReportData;
 use Uzapoint\ReportingContracts\Stocks\StockTransactionReportData;
 use Uzapoint\ReportingContracts\Support\SupportTicketReportData;
@@ -46,6 +47,22 @@ final class Payloads
     {
         return [
             SaleReportData::class => self::sale(),
+            SalesTargetReportData::class => [
+                'target_id' => '01JD2Z8Q4M6T3K9X1V5R7B2N8C',
+                'business_id' => 12,
+                'user_id' => 3,
+                'type' => 'overall',
+                'metric' => 'amount',
+                'target_value' => 100000.0,
+                'achieved_value' => 42500.5,
+                'status' => 'active',
+                'start_date' => '2026-11-01',
+                'end_date' => '2026-11-30',
+                'period_type' => 'monthly',
+                'bonus_type' => 'percentage',
+                'bonus_value' => 2.5,
+                'updated_at' => '2026-11-25T14:00:00+03:00',
+            ],
             SalePaymentRecordedData::class => [
                 'sale_id' => 9001,
                 'business_id' => 12,

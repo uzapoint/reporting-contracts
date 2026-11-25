@@ -34,6 +34,7 @@ final class ContractCatalogueTest extends TestCase
         'sales.item.voided',
         'sale.item.synced',
         'sale.payment.recorded',
+        'sales_target.snapshot.synced',
         'invoice.snapshot.synced',
         'quotation.snapshot.synced',
         'sales.credit_note_issued',

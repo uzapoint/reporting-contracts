@@ -2,6 +2,12 @@
 
 Versions follow SemVer. A contract's `SCHEMA_VERSION` is independent of the package version and only bumps on an incompatible payload change.
 
+## [1.7.0] - 2026-11-25
+
+### Added
+
+- `Sales\SalesTargetReportData` on `sales_target.snapshot.synced`: a sales target's current state (staff member, type, metric, goal, amount achieved, status, period, bonus), republished on every change and once more with `is_deleted` when removed. Schema 1.
+
 ## [1.6.1] - 2026-11-02
 
 ### Changed

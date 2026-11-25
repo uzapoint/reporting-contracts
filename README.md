@@ -29,6 +29,7 @@ composer require uzapoint/reporting-contracts
 | `Sales\InvoiceReportData` (+ `DocumentItemReportData`)                                                                              | snapshot | `invoice.snapshot.synced`   | `HandleInvoiceSnapshot`     |
 | `Sales\QuotationReportData` (+ `DocumentItemReportData`)                                                                            | snapshot | `quotation.snapshot.synced` | `HandleQuotationSnapshot`   |
 | `Sales\CreditNoteReportData` (+ `CreditNoteItemReportData`)                                                                         | snapshot | `sales.credit_note_issued`  | `HandleCreditNoteSnapshot`  |
+| `Sales\SalesTargetReportData`                                                                                                      | snapshot | `sales_target.snapshot.synced` | `HandleSalesTargetSnapshot` |
 
 ### Products (`products.events`)
 
