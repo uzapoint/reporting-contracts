@@ -40,6 +40,20 @@ final class SupportTicketReportData extends ReportData
         public ?string $resolved_at = null,
         public ?string $closed_at = null,
         public int|string|null $closed_by_id = null,
+        // Added in 1.7.0, all optional: what the support reports need beyond the lifecycle.
+        public ?string $reference = null,
+        public ?string $ticket_category_name = null,
+        /** widget | portal | email | admin */
+        public ?string $source = null,
+        public int|string|null $account_manager_id = null,
+        /** ISO-8601 */
+        public ?string $created_at = null,
+        public ?string $first_response_at = null,
+        public ?string $sla_due_at = null,
+        /** 1 to 5 */
+        public ?int $rating = null,
+        public ?string $rating_comment = null,
+        public ?string $rated_at = null,
     ) {}
 
     public function eventName(): string

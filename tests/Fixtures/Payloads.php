@@ -238,6 +238,12 @@ final class Payloads
                 'user_id' => 3,
                 'ticket_category_id' => 4,
                 'opened_at' => '2026-10-13T08:00:00+03:00',
+                'reference' => 'SUP-002201',
+                'ticket_category_name' => 'Hardware',
+                'source' => 'widget',
+                'created_at' => '2026-10-13T08:00:00+03:00',
+                'first_response_at' => '2026-10-13T08:20:00+03:00',
+                'sla_due_at' => '2026-10-14T08:00:00+03:00',
             ],
             TicketMessageCreatedData::class => [
                 'message_id' => 31001,

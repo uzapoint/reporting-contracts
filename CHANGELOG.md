@@ -6,6 +6,7 @@ Versions follow SemVer. A contract's `SCHEMA_VERSION` is independent of the pack
 
 ### Added
 
+- `Support\SupportTicketReportData`: optional `reference`, `ticket_category_name`, `source`, `account_manager_id`, `created_at`, `first_response_at`, `sla_due_at`, `rating`, `rating_comment`, `rated_at`, so ticket, response-time, SLA and satisfaction reports can be built from the lake. Schema stays 1.
 - `Sales\SalesTargetReportData` on `sales_target.snapshot.synced`: a sales target's current state (staff member, type, metric, goal, amount achieved, status, period, bonus), republished on every change and once more with `is_deleted` when removed. Schema 1.
 
 ## [1.6.1] - 2026-11-02
