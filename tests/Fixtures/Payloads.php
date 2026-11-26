@@ -531,6 +531,7 @@ final class Payloads
                     'line_subtotal' => 1610.0,
                     'line_total' => 1610.0,
                     'line_tax_total' => 222.07,
+                    'taxes' => [['tax_code' => 'VAT', 'tax_rate' => 16.0, 'tax_amount' => 222.07]],
                 ],
                 [
                     'product_code' => 'KE-BREAD-400',

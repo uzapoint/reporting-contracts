@@ -87,7 +87,7 @@ final class ContractCatalogueTest extends TestCase
         'accounts.journal.reversed',
         'accounts.coa.upserted',
         'accounts.coa.deleted',
-        // Read by sales-ms (it reopens the sale's balance), not by reports-ms.
+        // Read by sales-ms (it reopens the balance owed on the sale), not by reports-ms.
         'receivable.payment.reversed',
     ];
 

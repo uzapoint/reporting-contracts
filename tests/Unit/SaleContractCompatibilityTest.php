@@ -34,7 +34,7 @@ final class SaleContractCompatibilityTest extends TestCase
     private const array HANDLER_ITEM_READS = [
         'product_sku_id', 'product_code', 'product_name', 'category_id', 'category_name', 'unit_cost', 'quantity',
         'unit_price', 'line_subtotal', 'line_total', 'line_tax_total', 'line_discount_total', 'batch_number',
-        'serial_number', 'tracking_method', 'expiry_date',
+        'serial_number', 'tracking_method', 'expiry_date', 'taxes',
     ];
 
     #[Test]

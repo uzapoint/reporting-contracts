@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Uzapoint\ReportingContracts\Sales;
 
+use Spatie\LaravelData\Attributes\DataCollectionOf;
 use Spatie\LaravelData\Data;
 
 /**
@@ -13,7 +14,7 @@ use Spatie\LaravelData\Data;
  * category_name, unit_cost, quantity, unit_price, line_subtotal, line_total,
  * line_tax_total, line_discount_total, batch_number, serial_number,
  * tracking_method, expiry_date, is_free_good, is_free_with_expense, free_value,
- * expense_amount, order_discount_total. Legacy aliases it still accepts (sku, qty)
+ * expense_amount, order_discount_total, taxes. Legacy aliases it still accepts (sku, qty)
  * are not part of the contract.
  */
 final class SaleItemReportData extends Data
@@ -48,6 +49,14 @@ final class SaleItemReportData extends Data
         public ?float $expense_amount = null,
         /** This line's share of the whole-order discount (tax-exclusive); part of line_discount_total. */
         public float $order_discount_total = 0.0,
+        /**
+         * Added in 1.7.0: each tax on the line with its rate and amount (VAT-by-rate
+         * reporting). Empty for untaxed lines and for producers that do not send it.
+         *
+         * @var list<SaleItemTaxReportData>
+         */
+        #[DataCollectionOf(SaleItemTaxReportData::class)]
+        public array $taxes = [],
     ) {
     }
 }

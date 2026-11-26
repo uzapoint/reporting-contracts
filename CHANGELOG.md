@@ -7,6 +7,7 @@ Versions follow SemVer. A contract's `SCHEMA_VERSION` is independent of the pack
 ### Added
 
 - `Procurement\PurchaseReturnReportData` on `procurement.purchase_return.synced` and `Procurement\RejectedItemReportData` on `procurement.rejected_item.synced`, schema 1.
+- `Sales\SaleItemReportData`: optional `taxes`, a list of `Sales\SaleItemTaxReportData` (tax code, rate, amount) per line, for VAT-by-rate reporting. Schema stays 1.
 - `Products\ProductSkuReportData`: optional `name`, `cost_price`, `image_url`, `markup_type`, `markup_value` and `map_location_tag_id`, which products-ms already sends per SKU.
 - `Stocks\StockTransactionReportData`: optional `backdated` (default false), which stocks-ms already sends for movements filed on an earlier day.
 - `Support\SupportTicketReportData`: optional `reference`, `ticket_category_name`, `source`, `account_manager_id`, `created_at`, `first_response_at`, `sla_due_at`, `rating`, `rating_comment`, `rated_at`, so ticket, response-time, SLA and satisfaction reports can be built from the lake. Schema stays 1.
