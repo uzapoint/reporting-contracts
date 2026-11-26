@@ -46,6 +46,12 @@ final class StockTransactionReportData extends ReportData
         public int|string|null $user_id = null,
         public ?float $reorder_level = null,
         public ?float $cost_price = null,
+        /**
+         * Added in 1.7.0. The movement is filed on an earlier day than it was posted:
+         * consumers shift that day's and every later day's balances rather than taking
+         * quantity_after as that day's close.
+         */
+        public bool $backdated = false,
     ) {}
 
     public function eventName(): string
