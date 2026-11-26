@@ -6,10 +6,15 @@ Versions follow SemVer. A contract's `SCHEMA_VERSION` is independent of the pack
 
 ### Added
 
+- `Procurement\PurchaseReturnReportData` on `procurement.purchase_return.synced` and `Procurement\RejectedItemReportData` on `procurement.rejected_item.synced`, schema 1.
 - `Products\ProductSkuReportData`: optional `name`, `cost_price`, `image_url`, `markup_type`, `markup_value` and `map_location_tag_id`, which products-ms already sends per SKU.
 - `Stocks\StockTransactionReportData`: optional `backdated` (default false), which stocks-ms already sends for movements filed on an earlier day.
 - `Support\SupportTicketReportData`: optional `reference`, `ticket_category_name`, `source`, `account_manager_id`, `created_at`, `first_response_at`, `sla_due_at`, `rating`, `rating_comment`, `rated_at`, so ticket, response-time, SLA and satisfaction reports can be built from the lake. Schema stays 1.
 - `Sales\SalesTargetReportData` on `sales_target.snapshot.synced`: a sales target's current state (staff member, type, metric, goal, amount achieved, status, period, bonus), republished on every change and once more with `is_deleted` when removed. Schema 1.
+
+### Changed
+
+- Procurement snapshots now follow what procurement-ms actually publishes (`SnapshotFactory`) and go out on one key per entity, with the step that caused them in `action`: `procurement.purchase_order.synced`, `procurement.requisition.synced`, `procurement.goods_received.synced`. Schema 2 for `PurchaseOrderReportData`, `RequisitionReportData` and `GoodsReceivedReportData`: `entity_type` is `purchase_requisition` / `goods_receipt` as in the lake; order, requisition and receipt totals, base-currency total, exchange rate, item categories, batches and serials are carried; `order_date` and `created_at` are no longer required. No producer published the schema 1 shapes.
 
 ## [1.6.1] - 2026-11-02
 

@@ -82,9 +82,11 @@ Published by accounts-ms for every posted or reversed entry and every chart-of-a
 
 | Contract                                                                | Kind     | Routing key                                                             | Consumer                         |
 | ----------------------------------------------------------------------- | -------- | ----------------------------------------------------------------------- | -------------------------------- |
-| `Procurement\PurchaseOrderReportData` (+ `PurchaseOrderItemReportData`) | snapshot | `procurement.purchase_order.{created,sent,accepted,rejected,cancelled}` | `HandleProcurementPurchaseOrder` |
-| `Procurement\RequisitionReportData`                                     | snapshot | `procurement.requisition.{created,approved,rejected}`                   | `HandleProcurementRequisition`   |
-| `Procurement\GoodsReceivedReportData`                                   | snapshot | `procurement.goods_received.grn_created`                                | `HandleProcurementGoodsReceived` |
+| `Procurement\PurchaseOrderReportData` (+ `PurchaseOrderItemReportData`) | snapshot | `procurement.purchase_order.synced`   | `HandleProcurementPurchaseOrder`  |
+| `Procurement\RequisitionReportData`                                     | snapshot | `procurement.requisition.synced`      | `HandleProcurementRequisition`    |
+| `Procurement\GoodsReceivedReportData`                                   | snapshot | `procurement.goods_received.synced`   | `HandleProcurementGoodsReceived`  |
+| `Procurement\PurchaseReturnReportData`                                  | snapshot | `procurement.purchase_return.synced`  | `HandleProcurementPurchaseReturn` |
+| `Procurement\RejectedItemReportData`                                    | snapshot | `procurement.rejected_item.synced`    | `HandleProcurementRejectedItem`   |
 | `Procurement\SupplierReportData`                                        | snapshot | `procurement.supplier.{created,updated}`                                | `HandleProcurementSupplier`      |
 
 ### Commissions (`business.events`)

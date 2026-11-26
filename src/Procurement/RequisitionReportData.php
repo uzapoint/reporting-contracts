@@ -9,40 +9,47 @@ use SammyBoy\Reporting\Envelope\ReportKind;
 use Uzapoint\ReportingContracts\ReportData;
 
 /**
- * Snapshot of a purchase requisition on each transition.
+ * The whole purchase requisition as it stands, republished after every change (created,
+ * approved, rejected, approval reverted).
  *
- * Routing keys: procurement.requisition.{created|approved|rejected}  (procurement.events)
- * Consumer:     reports-ms HandleProcurementRequisition -> procurement_requisitions
- *               (partial upsert by requisition_id) + raw procurement_snapshots.
+ * Routing key: procurement.requisition.synced  (procurement.events)
+ * Consumer:    reports-ms HandleProcurementRequisition -> procurement_requisitions
+ *              + procurement_snapshots (one document per entity_type + requisition_id).
+ *
+ * Schema 2 (1.7.0): the shape of procurement-ms SnapshotFactory::requisitionSnapshot,
+ * published on one key. Values are in the business's base currency.
  */
 final class RequisitionReportData extends ReportData
 {
-    public const int SCHEMA_VERSION = 1;
+    public const int SCHEMA_VERSION = 2;
 
+    /**
+     * @param list<array<string, mixed>> $items purchase_requisition_item_id, product_id,
+     *        category_id, product_sku_id, sku, product_name, quantity, estimated_unit_price,
+     *        estimated_total
+     */
     public function __construct(
         public int $requisition_id,
         public int $business_id,
-        /** created | approved | rejected */
-        public string $action,
         public string $status,
         public string $ref_no,
-        public float $total_value,
-        /** ISO-8601 */
-        public string $created_at,
-        public string $title = 'Requisition',
-        public int|string|null $requested_by = null,
+        public float $total_value = 0.0,
+        public string $action = 'state_changed',
+        public ?int $supplier_id = null,
+        public ?string $supplier_name = null,
+        public int $items_count = 0,
+        public int|string|null $created_by = null,
         public int|string|null $approved_by = null,
-        /** low | medium | high */
-        public string $priority = 'medium',
-        public ?string $expected_delivery_date = null,
-        public ?string $notes = null,
         public ?string $rejection_reason = null,
-        public string $entity_type = 'requisition',
+        public array $items = [],
+        /** ISO-8601, when the snapshot was taken. */
+        public ?string $timestamp = null,
+        public string $entity_type = 'purchase_requisition',
     ) {}
 
     public function eventName(): string
     {
-        return "procurement.requisition.{$this->action}";
+        return 'procurement.requisition.synced';
     }
 
     public function kind(): ReportKind
@@ -57,7 +64,7 @@ final class RequisitionReportData extends ReportData
 
     public function aggregateType(): string
     {
-        return 'requisition';
+        return 'purchase_requisition';
     }
 
     public function aggregateId(): string|int
@@ -67,11 +74,11 @@ final class RequisitionReportData extends ReportData
 
     public function occurredAt(): ?DateTimeInterface
     {
-        return $this->timestamp($this->created_at);
+        return $this->timestamp($this->timestamp);
     }
 
     public function actorId(): int|string|null
     {
-        return $this->action === 'created' ? $this->requested_by : $this->approved_by;
+        return $this->approved_by ?? $this->created_by;
     }
 }

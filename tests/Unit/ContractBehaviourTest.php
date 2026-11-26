@@ -50,7 +50,9 @@ final class ContractBehaviourTest extends TestCase
         $this->assertSame('expense:approved:1201', ExpenseReportData::from([...$expense, 'action' => 'approved'])->idempotencyKey());
 
         $po = Payloads::all()[PurchaseOrderReportData::class];
-        $this->assertSame('procurement.purchase_order.cancelled', PurchaseOrderReportData::from([...$po, 'action' => 'cancelled'])->eventName());
+        // One key per procurement entity, whatever step caused the snapshot.
+        $this->assertSame('procurement.purchase_order.synced', PurchaseOrderReportData::from([...$po, 'action' => 'cancelled'])->eventName());
+        $this->assertSame('cancelled', PurchaseOrderReportData::from([...$po, 'action' => 'cancelled'])->toReportPayload()['action']);
 
         $ticket = Payloads::all()[SupportTicketReportData::class];
         $this->assertSame('support_ticket.closed', SupportTicketReportData::from([...$ticket, 'action' => 'closed'])->eventName());
