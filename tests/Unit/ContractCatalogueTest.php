@@ -76,6 +76,10 @@ final class ContractCatalogueTest extends TestCase
         'receivable.payment.recorded',
         'receivable.fully_paid',
         'stock.transaction.recorded',
+        'stock.batch.synced',
+        'stock.transfer.synced',
+        'stock.wastage.recorded',
+        'stock.take.synced',
         'production.requisition.synced',
         'production.finished_goods.produced',
         'production.raw_materials.consumed',
@@ -124,7 +128,7 @@ final class ContractCatalogueTest extends TestCase
         sort($fixtures);
 
         $this->assertSame($fixtures, $classes, 'Add a fixture to Payloads::all() for every new contract.');
-        $this->assertCount(33, $classes);
+        $this->assertCount(37, $classes);
     }
 
     #[Test]

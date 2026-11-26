@@ -6,6 +6,7 @@ Versions follow SemVer. A contract's `SCHEMA_VERSION` is independent of the pack
 
 ### Added
 
+- Stock control contracts on `stocks.events`, schema 1: `Stocks\StockBatchReportData` (`stock.batch.synced`), `Stocks\StockTransferReportData` with `StockTransferItemReportData` (`stock.transfer.synced`), `Stocks\StockWastageReportData` (`stock.wastage.recorded`) and `Stocks\StockTakeReportData` with `StockTakeItemReportData` (`stock.take.synced`).
 - `Procurement\PurchaseReturnReportData` on `procurement.purchase_return.synced` and `Procurement\RejectedItemReportData` on `procurement.rejected_item.synced`, schema 1.
 - `Sales\SaleItemReportData`: optional `taxes`, a list of `Sales\SaleItemTaxReportData` (tax code, rate, amount) per line, for VAT-by-rate reporting. Schema stays 1.
 - `Products\ProductSkuReportData`: optional `name`, `cost_price`, `image_url`, `markup_type`, `markup_value` and `map_location_tag_id`, which products-ms already sends per SKU.

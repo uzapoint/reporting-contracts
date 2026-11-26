@@ -44,6 +44,10 @@ composer require uzapoint/reporting-contracts
 | Contract                            | Kind  | Routing key                  | Consumer                  |
 | ----------------------------------- | ----- | ---------------------------- | ------------------------- |
 | `Stocks\StockTransactionReportData` | event | `stock.transaction.recorded` | `ProcessStockTransaction` |
+| `Stocks\StockBatchReportData`                                          | snapshot | `stock.batch.synced`                  | `HandleStockBatchSnapshot`        |
+| `Stocks\StockTransferReportData` (+ `StockTransferItemReportData`)      | snapshot | `stock.transfer.synced`               | `HandleStockTransferSnapshot`     |
+| `Stocks\StockWastageReportData`                                         | event    | `stock.wastage.recorded`              | `HandleStockWastageRecorded`      |
+| `Stocks\StockTakeReportData` (+ `StockTakeItemReportData`)              | snapshot | `stock.take.synced`                   | `HandleStockTakeSnapshot`         |
 
 ### Accounts (`accounts.events`, `wrapped` envelope)
 

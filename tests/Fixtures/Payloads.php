@@ -17,6 +17,10 @@ use Uzapoint\ReportingContracts\Accounts\JournalEntryPostedData;
 use Uzapoint\ReportingContracts\Accounts\JournalEntryReversedData;
 use Uzapoint\ReportingContracts\Accounts\ReceivablePaymentReversedData;
 use Uzapoint\ReportingContracts\Accounts\ChartAccountChangedData;
+use Uzapoint\ReportingContracts\Stocks\StockBatchReportData;
+use Uzapoint\ReportingContracts\Stocks\StockTransferReportData;
+use Uzapoint\ReportingContracts\Stocks\StockWastageReportData;
+use Uzapoint\ReportingContracts\Stocks\StockTakeReportData;
 use Uzapoint\ReportingContracts\Procurement\PurchaseOrderReportData;
 use Uzapoint\ReportingContracts\Procurement\PurchaseReturnReportData;
 use Uzapoint\ReportingContracts\Procurement\RejectedItemReportData;
@@ -336,6 +340,55 @@ final class Payloads
                 'name' => 'Cash',
                 'account_type' => 'asset',
                 'normal_balance' => 'debit',
+            ],
+            StockBatchReportData::class => [
+                'batch_id' => 41,
+                'business_id' => 12,
+                'inventory_item_id' => 5,
+                'location_id' => 4,
+                'batch_number' => 'B-2026-10-12',
+                'current_quantity' => 18,
+                'initial_quantity' => 50,
+                'sku' => 'KE-BREAD-400',
+                'sku_name' => 'Bread 400g',
+                'unit_cost' => 55.0,
+                'expiry_date' => '2026-10-16',
+                'received_at' => '2026-10-12T08:00:00+03:00',
+                'status' => 'released',
+                'updated_at' => '2026-10-13T16:00:00+03:00',
+            ],
+            StockTransferReportData::class => [
+                'transfer_id' => 51,
+                'business_id' => 12,
+                'from_location_id' => 4,
+                'to_location_id' => 5,
+                'status' => 'shipped',
+                'created_at' => '2026-10-12T08:00:00+03:00',
+                'shipped_at' => '2026-10-12T10:00:00+03:00',
+                'items' => [['inventory_item_id' => 5, 'sku' => 'KE-BREAD-400', 'quantity_requested' => 20, 'quantity_shipped' => 20, 'unit_cost' => 55.0]],
+            ],
+            StockWastageReportData::class => [
+                'wastage_id' => 61,
+                'business_id' => 12,
+                'location_id' => 4,
+                'inventory_item_id' => 5,
+                'quantity' => 2,
+                'recorded_at' => '2026-10-13T18:00:00+03:00',
+                'sku' => 'KE-BREAD-400',
+                'unit_cost' => 55.0,
+                'reason' => 'Expired',
+                'source' => 'manual',
+                'recorded_by_user_id' => 3,
+            ],
+            StockTakeReportData::class => [
+                'stock_take_id' => 71,
+                'business_id' => 12,
+                'location_id' => 4,
+                'status' => 'completed',
+                'started_at' => '2026-10-14T07:00:00+03:00',
+                'completed_at' => '2026-10-14T09:00:00+03:00',
+                'started_by_user_id' => 3,
+                'items' => [['inventory_item_id' => 5, 'sku' => 'KE-BREAD-400', 'expected_quantity' => 18, 'counted_quantity' => 16, 'difference' => -2, 'unit_cost' => 55.0]],
             ],
             PurchaseOrderReportData::class => [
                 'po_id' => 61,
