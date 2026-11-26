@@ -6,6 +6,7 @@ Versions follow SemVer. A contract's `SCHEMA_VERSION` is independent of the pack
 
 ### Added
 
+- Budget and treasury contracts on `accounts.events`, schema 1: `Accounts\BudgetReportData` with `BudgetLineReportData` (`accounts.budget.synced`), `Accounts\BankingAccountReportData` (`accounts.banking_account.synced`), `Accounts\BankReconciliationReportData` (`accounts.reconciliation.synced`), `Accounts\CustomerWalletReportData` (`accounts.customer_wallet.synced`) and `Accounts\FixedAssetReportData` (`accounts.asset.synced`).
 - Stock control contracts on `stocks.events`, schema 1: `Stocks\StockBatchReportData` (`stock.batch.synced`), `Stocks\StockTransferReportData` with `StockTransferItemReportData` (`stock.transfer.synced`), `Stocks\StockWastageReportData` (`stock.wastage.recorded`) and `Stocks\StockTakeReportData` with `StockTakeItemReportData` (`stock.take.synced`).
 - `Procurement\PurchaseReturnReportData` on `procurement.purchase_return.synced` and `Procurement\RejectedItemReportData` on `procurement.rejected_item.synced`, schema 1.
 - `Sales\SaleItemReportData`: optional `taxes`, a list of `Sales\SaleItemTaxReportData` (tax code, rate, amount) per line, for VAT-by-rate reporting. Schema stays 1.

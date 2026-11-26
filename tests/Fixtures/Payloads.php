@@ -21,6 +21,11 @@ use Uzapoint\ReportingContracts\Stocks\StockBatchReportData;
 use Uzapoint\ReportingContracts\Stocks\StockTransferReportData;
 use Uzapoint\ReportingContracts\Stocks\StockWastageReportData;
 use Uzapoint\ReportingContracts\Stocks\StockTakeReportData;
+use Uzapoint\ReportingContracts\Accounts\BudgetReportData;
+use Uzapoint\ReportingContracts\Accounts\BankingAccountReportData;
+use Uzapoint\ReportingContracts\Accounts\BankReconciliationReportData;
+use Uzapoint\ReportingContracts\Accounts\CustomerWalletReportData;
+use Uzapoint\ReportingContracts\Accounts\FixedAssetReportData;
 use Uzapoint\ReportingContracts\Procurement\PurchaseOrderReportData;
 use Uzapoint\ReportingContracts\Procurement\PurchaseReturnReportData;
 use Uzapoint\ReportingContracts\Procurement\RejectedItemReportData;
@@ -389,6 +394,63 @@ final class Payloads
                 'completed_at' => '2026-10-14T09:00:00+03:00',
                 'started_by_user_id' => 3,
                 'items' => [['inventory_item_id' => 5, 'sku' => 'KE-BREAD-400', 'expected_quantity' => 18, 'counted_quantity' => 16, 'difference' => -2, 'unit_cost' => 55.0]],
+            ],
+            BudgetReportData::class => [
+                'budget_id' => 81,
+                'business_id' => 12,
+                'name' => 'FY2026 Operating Budget',
+                'status' => 'approved',
+                'fiscal_year_id' => 3,
+                'fiscal_year_start' => '2026-01-01',
+                'fiscal_year_end' => '2026-12-31',
+                'lines' => [['coa_account_id' => 60, 'account_code' => '6000', 'account_name' => 'Rent', 'account_type' => 'expense', 'fiscal_period_id' => 11, 'period_start' => '2026-11-01', 'period_end' => '2026-11-30', 'budgeted_amount' => 1200.0]],
+                'updated_at' => '2026-10-01T09:00:00+03:00',
+            ],
+            BankingAccountReportData::class => [
+                'banking_account_id' => 21,
+                'business_id' => 12,
+                'account_name' => 'Equity Bank Current',
+                'current_balance' => 125000.5,
+                'code' => 'BANK-01',
+                'coa_account_id' => 10,
+                'account_type' => 'bank',
+                'currency' => 'KES',
+                'minimum_balance' => 10000.0,
+                'updated_at' => '2026-10-13T16:00:00+03:00',
+            ],
+            BankReconciliationReportData::class => [
+                'reconciliation_id' => 31,
+                'business_id' => 12,
+                'banking_account_id' => 21,
+                'status' => 'completed',
+                'statement_date' => '2026-10-31',
+                'statement_closing_balance' => 125000.5,
+                'system_closing_balance' => 124900.5,
+                'difference' => 100.0,
+                'total_statement_lines' => 40,
+                'matched_lines' => 39,
+                'unmatched_lines' => 1,
+            ],
+            CustomerWalletReportData::class => [
+                'wallet_id' => 41,
+                'business_id' => 12,
+                'customer_id' => 501,
+                'balance' => 2500.0,
+                'customer_name' => 'Amina',
+                'held_amount' => 500.0,
+                'available_balance' => 2000.0,
+                'updated_at' => '2026-10-13T16:00:00+03:00',
+            ],
+            FixedAssetReportData::class => [
+                'asset_id' => 51,
+                'business_id' => 12,
+                'name' => 'Delivery Van',
+                'purchase_price' => 2400000.0,
+                'category_name' => 'Vehicles',
+                'accumulated_depreciation' => 480000.0,
+                'net_book_value' => 1920000.0,
+                'purchase_date' => '2025-10-01',
+                'updated_at' => '2026-10-13T16:00:00+03:00',
             ],
             PurchaseOrderReportData::class => [
                 'po_id' => 61,

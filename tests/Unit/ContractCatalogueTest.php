@@ -91,6 +91,11 @@ final class ContractCatalogueTest extends TestCase
         'accounts.journal.reversed',
         'accounts.coa.upserted',
         'accounts.coa.deleted',
+        'accounts.budget.synced',
+        'accounts.banking_account.synced',
+        'accounts.reconciliation.synced',
+        'accounts.customer_wallet.synced',
+        'accounts.asset.synced',
         // Read by sales-ms (it reopens the balance owed on the sale), not by reports-ms.
         'receivable.payment.reversed',
     ];
@@ -128,7 +133,7 @@ final class ContractCatalogueTest extends TestCase
         sort($fixtures);
 
         $this->assertSame($fixtures, $classes, 'Add a fixture to Payloads::all() for every new contract.');
-        $this->assertCount(37, $classes);
+        $this->assertCount(42, $classes);
     }
 
     #[Test]
