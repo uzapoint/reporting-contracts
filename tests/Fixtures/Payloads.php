@@ -131,7 +131,15 @@ final class Payloads
                 'tracking_method' => 'none',
                 'is_active' => true,
                 'created_by' => 3,
-                'skus' => [['sku' => 'KE-SODA-500', 'price' => 80.5, 'barcode' => '6001234567890']],
+                'skus' => [[
+                    'sku' => 'KE-SODA-500',
+                    'price' => 80.5,
+                    'barcode' => '6001234567890',
+                    'name' => 'Soda 500ml',
+                    'cost_price' => 55.25,
+                    'markup_type' => 'percentage',
+                    'markup_value' => 45.7,
+                ]],
             ],
             ProductDeactivatedData::class => [
                 'product_id' => 700,
